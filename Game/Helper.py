@@ -30,3 +30,6 @@ def dxdy(keys):
     if keys[pygame.K_a]: dx -= 1
 
     return dx, dy
+
+def generateRects(players):
+    return [pygame.Rect(player[1] + [player[3], player[3]]) for player in players]

@@ -30,19 +30,23 @@ while running:
     screen.fill([0, 0, 0])
     running = Helper.eventLoop()
 
+    # Player rects
+    rects = Helper.generateRects([p for p in players if p[0] != uid])
+
     # Check last time we got data from the Server
     if time() - lastUpdated > timeout:
         running = False
 
     # Drawing
     Draw.drawPlayer(screen, p.rect, p.col)
-    Draw.drawPlayers(screen, [ps[1] for ps in players if ps[0] != uid], [ps[2] for ps in players if ps[0] != uid],
-                             [ps[3] for ps in players if ps[0] != uid])
+    Draw.drawPlayers(screen, rects, [ps[2] for ps in players if ps[0] != uid])
 
     # Player movement
     keys = Helper.keys()
     dx, dy = Helper.dxdy(keys)
-    p.move(dx, dy)
+    p.move(rects, dx, dy)
+    p.move(rects, 1, 0)
+
 
     # Refresh and wait for response from server
     Helper.refresh()
