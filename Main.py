@@ -45,11 +45,8 @@ while running:
     keys = Helper.keys()
     dx, dy = Helper.dxdy(keys)
     p.move(rects, dx, dy)
-    p.move(rects, 1, 0)
 
 
     # Refresh and wait for response from server
     Helper.refresh()
     io.wait(sleep)
-
-pygame.quit()
