@@ -8,12 +8,13 @@ screen, clock, running = Helper.setup()
 io                     = Client.createSocket()
 p, players, uid        = Player.player([250, 250], color = [r(0, 255), r(0, 255), r(0, 255)], size = r(5, 30)), [], None
 sleep, lastUpdated     = None, time()
-timeout                = 5
+timeout, objects       = 5, []
 
 def tick(*args):
-    global players, lastUpdated
+    global players, lastUpdated, objects
     lastUpdated = time()
-    players = args[0]
+    players = args[0]["players"]
+    objects = args[0]["objects"]
     io.emit("tickReply", {"position": p.pos, "color": p.col, "size": p.size})
 
 def setup(*args):
@@ -31,7 +32,8 @@ while running:
     running = Helper.eventLoop()
 
     # Player rects
-    rects = Helper.generateRects([p for p in players if p[0] != uid])
+    pRects = Helper.generateRects([p for p in players if p[0] != uid])
+    oRects = Helper.generateObjRects(objects)
 
     # Check last time we got data from the Server
     if time() - lastUpdated > timeout:
@@ -39,12 +41,13 @@ while running:
 
     # Drawing
     Draw.drawPlayer(screen, p.rect, p.offset, p.col)
-    Draw.drawPlayers(screen, rects, p.offset, [ps[2] for ps in players if ps[0] != uid])
+    Draw.drawRects(screen, pRects, p.offset, [ps[2] for ps in players if ps[0] != uid])
+    Draw.drawRects(screen, oRects, p.offset)
 
     # Player movement
     keys = Helper.keys()
     dx, dy = Helper.dxdy(keys)
-    p.move(rects, dx, dy)
+    p.move(pRects + oRects, dx, dy)
 
 
     # Refresh and wait for response from server

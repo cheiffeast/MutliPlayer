@@ -33,3 +33,6 @@ def dxdy(keys):
 
 def generateRects(players):
     return [pygame.Rect(player[1] + [player[3], player[3]]) for player in players]
+
+def generateObjRects(objects):
+    return [pygame.Rect(obj) for obj in objects]

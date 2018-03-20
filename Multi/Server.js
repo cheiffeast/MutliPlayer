@@ -4,6 +4,14 @@ var misc = require("./Misc.js");
 // Globals
 var players = [];
 var SleepTimer = 1 / 120;
+var objects = [];
+var world = misc.loadWorld("worlds/example.world", function(data){
+	objects = data;
+});
+
+
+
+
 
 io.on("connection", function(socket){
 
@@ -39,7 +47,7 @@ io.on("connection", function(socket){
 });
 
 setInterval(function(){
-	io.sockets.emit("tick", players);
+	io.sockets.emit("tick", {"players": players, "objects": objects});
 
 }, 1000 / 120);
 
