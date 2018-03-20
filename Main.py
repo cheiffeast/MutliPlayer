@@ -15,7 +15,7 @@ def tick(*args):
     lastUpdated = time()
     players = args[0]["players"]
     objects = args[0]["objects"]
-    io.emit("tickReply", {"position": p.pos, "color": p.col, "size": p.size})
+    io.emit("tickReply", {"position": p.pos + [p.size, p.size], "color": p.col})
 
 def setup(*args):
     global sleep, uid
@@ -32,8 +32,8 @@ while running:
     running = Helper.eventLoop()
 
     # Player rects
-    pRects = Helper.generateRects([p for p in players if p[0] != uid])
-    oRects = Helper.generateObjRects(objects)
+    pRects = Helper.generateRects([p[1] for p in players if p[0] != uid])
+    oRects = Helper.generateRects([obj[0] for obj in objects])
 
     # Check last time we got data from the Server
     if time() - lastUpdated > timeout:
@@ -42,7 +42,7 @@ while running:
     # Drawing
     Draw.drawPlayer(screen, p.rect, p.offset, p.col)
     Draw.drawRects(screen, pRects, p.offset, [ps[2] for ps in players if ps[0] != uid])
-    Draw.drawRects(screen, oRects, p.offset)
+    Draw.drawRects(screen, oRects, p.offset, [obj[1] for obj in objects])
 
     # Player movement
     keys = Helper.keys()

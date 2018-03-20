@@ -5,7 +5,7 @@ var misc = require("./Misc.js");
 var players = [];
 var SleepTimer = 1 / 120;
 var objects = [];
-var world = misc.loadWorld("worlds/example.world", function(data){
+misc.loadWorld("worlds/example.world", function(data){
 	objects = data;
 });
 
@@ -16,7 +16,8 @@ var world = misc.loadWorld("worlds/example.world", function(data){
 io.on("connection", function(socket){
 
 	socket.uid = misc.generateUID();
-	players.push([socket.uid, [0, 0], [0, 0, 0], 20]);
+	players.push([socket.uid, [0, 0, 20, 20], [0, 0, 0]])
+
 	misc.log("New player #" + String(socket.uid) + " (" + String(players.length) + ")");
 
 
@@ -38,7 +39,6 @@ io.on("connection", function(socket){
 			if(index != null){
 				players[index][1] = data.position;
 				players[index][2] = data.color;
-				players[index][3] = data.size;
 			}
 		});
 	});
@@ -48,8 +48,13 @@ io.on("connection", function(socket){
 
 setInterval(function(){
 	io.sockets.emit("tick", {"players": players, "objects": objects});
-
 }, 1000 / 120);
+
+setInterval(function(){
+	misc.loadWorld("worlds/example.world", function(data){
+		objects = data;
+	});
+}, 1000);
 
 
 io.listen(3000);

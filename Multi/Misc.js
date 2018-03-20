@@ -24,18 +24,17 @@ exports.generateUID  = function(){
 }
 
 exports.loadWorld = function(worldFile, callback){
-	fs.readFile(worldFile, {encoding: 'utf-8'}, function(err, data){
+	fs.readFile(worldFile, "utf-8", function(err, data){
 		if(err){
 			console.log(err);
 		}
 		else{
 			array = [];
-			pieces = data.replace("\r\n", "").split("],");
+			pieces = data.split('\n');
 
-			for(i = 0; i < pieces.length; i++){
-				subPieces = pieces[i].replace("[", "").replace("]", "").split(",");
-				array.push([parseInt(subPieces[0]), parseInt(subPieces[1]),
-										parseInt(subPieces[2]), parseInt(subPieces[3])])
+			for(i = 0; i < pieces.length - 1; i++){
+				piece = JSON.parse(pieces[i]);
+				array.push([piece.position, piece.color]);
 			}
 
 			callback(array);
