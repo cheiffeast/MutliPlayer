@@ -38,8 +38,8 @@ while running:
         running = False
 
     # Drawing
-    Draw.drawPlayer(screen, p.rect, p.col)
-    Draw.drawPlayers(screen, rects, [ps[2] for ps in players if ps[0] != uid])
+    Draw.drawPlayer(screen, p.rect, p.offset, p.col)
+    Draw.drawPlayers(screen, rects, p.offset, [ps[2] for ps in players if ps[0] != uid])
 
     # Player movement
     keys = Helper.keys()

@@ -1,9 +1,11 @@
 from pygame.draw import rect
 
-def drawPlayer(surface, r, col = [0, 0, 0]):
+def drawPlayer(surface, r, offset, col = [0, 0, 0]):
+    r = [r[0] + offset[0], r[1] + offset[1], r[2], r[2]]
     rect(surface, col, r)
 
-def drawPlayers(surface, rects, col = None):
+def drawPlayers(surface, rects, offset, col = None):
     if col == None: col = [[0, 0, 0] for r in rs]
     for i in range(len(rects)):
-        rect(surface, col[i], rects[i])
+        r = [rects[i][0] + offset[0], rects[i][1] + offset[1], rects[i][2], rects[i][2]]
+        rect(surface, col[i], r)

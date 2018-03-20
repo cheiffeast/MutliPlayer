@@ -5,4 +5,3 @@ HOST, PORT = "localhost", 3000
 
 def createSocket():
     return SocketIO(HOST, PORT, LoggingNamespace)
-

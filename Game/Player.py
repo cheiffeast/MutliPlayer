@@ -13,6 +13,8 @@ class player():
 
         self.position  = self.pos  = position
         self.rectangle = self.rect = Rect(self.position + [self.size, self.size])
+        self.offset = [0, 0]
+
 
         self.dx = 0
         self.dy = 0
@@ -22,6 +24,7 @@ class player():
         self.moveSingleAxis(rects, 0, dy)
 
         self.position = self.pos = [self.rect[0], self.rect[1]]
+        self.offset = [250 - self.pos[0], 250 - self.pos[1]]
 
         return self.position
 
