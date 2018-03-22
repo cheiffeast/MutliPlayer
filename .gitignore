@@ -49,3 +49,4 @@ Temporary Items
 toExe.py
 *.pyc
 /build
+/V2

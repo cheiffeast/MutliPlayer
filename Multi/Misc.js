@@ -34,10 +34,21 @@ exports.loadWorld = function(worldFile, callback){
 
 			for(i = 0; i < pieces.length - 1; i++){
 				piece = JSON.parse(pieces[i]);
-				array.push([piece.position, piece.color]);
+				array.push([piece.position, piece.color, piece.velocity]);
 			}
 
 			callback(array);
 		}
 	});
+}
+
+exports.generateObjectList = function(pos, objects, callback){
+	pobjs = [];
+	for(var i in objects){
+		dist = Math.pow(pos[0] - objects[i][0][0], 2) + Math.pow(pos[1] - objects[i][0][1], 2);
+		if(dist < 1000000){
+			pobjs.push(objects[i]);
+		}
+	}
+	callback(pobjs);
 }

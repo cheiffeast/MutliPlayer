@@ -2,7 +2,7 @@ import pygame
 
 def setup(size = [500, 500]):
     pygame.init()
-    screen = pygame.display.set_mode([500, 500])
+    screen = pygame.display.set_mode(size)
     clock = pygame.time.Clock()
 
     return screen, clock, True
@@ -21,6 +21,9 @@ def keys():
 
 def mouse():
     return pygame.mouse.get_pressed()
+
+def mousepos():
+    return pygame.mouse.get_pos()
 
 def dxdy(keys):
     dx, dy = 0, 0

@@ -1,1 +1,6 @@
-{"position": [0, 0, 200, 20], "color": [255, 255, 0]}
+{"position": [0, 0, 500, 20], "color": [255, 255, 0], "velocity": [0, 0]}
+{"position": [500, 0, 500, 20], "color": [0, 255, 255], "velocity": [0, 0]}
+{"position": [0, 480, 500, 20], "color": [255, 255, 0], "velocity": [0, 0]}
+{"position": [500, 480, 500, 20], "color": [0, 255, 255], "velocity": [0, 0]}
+{"position": [0, 20, 20, 480], "color": [255, 255, 0], "velocity": [0, 0]}
+{"position": [980, 20, 20, 480], "color": [0, 255, 255], "velocity": [0, 0]}
